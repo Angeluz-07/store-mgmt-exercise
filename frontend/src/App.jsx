@@ -5,19 +5,27 @@ import './App.css'
 import ProductForm from './productForm'
 import ProductListing from './ProductListing'
 import { ProductProvider } from './ProductContext'
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-
-      <div>
-        <p>Agregar Productos</p>
-      </div>
+      
       <ProductProvider>
-      <ProductListing></ProductListing>
-      <ProductForm></ProductForm>
+      <Container>
+        <Row>
+          <Col>
+          <ProductListing></ProductListing>
+          </Col>
+          <Col>          
+          <ProductForm></ProductForm>
+          </Col>
+        </Row>
+      </Container>
       </ProductProvider>
       {/*
       <div>

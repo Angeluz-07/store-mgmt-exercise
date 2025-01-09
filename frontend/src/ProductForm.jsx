@@ -30,6 +30,7 @@ function ProductForm() {
   return (
     <>
     <Form onSubmit={handleSubmit}>
+        <Form.Label><b>Agregar Productos</b></Form.Label>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Nombre del Producto</Form.Label>
             <Form.Control type="text" name="name" />

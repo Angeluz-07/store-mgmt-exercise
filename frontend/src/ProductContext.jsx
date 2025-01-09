@@ -11,10 +11,13 @@ export const ProductProvider = ({ children }) => {
     // Add new item logic here
     //send post request
     axios.post('http://localhost:8080/products', newProduct)
-    .then(response => console.log("Success:", response.data))
+    .then(response => {
+        console.log("Success:", response.data)
+        setProducts([...products, newProduct]);
+
+    })
     .catch(error => console.error('Error:', error));
 
-    setProducts([...products, newProduct]);
   };
 
   const fetchProducts = () => {
