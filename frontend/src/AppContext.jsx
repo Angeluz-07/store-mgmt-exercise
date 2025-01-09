@@ -2,10 +2,11 @@
 import React, { createContext, useState, useContext } from 'react';
 import axios from 'axios';
 
-const ProductContext = createContext();
+const AppContext = createContext();
 
-export const ProductProvider = ({ children }) => {
+export const AppProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
+  const [stores, setStores] = useState([]);
   
   const addProduct = (newProduct) => {
     // Add new item logic here
@@ -34,12 +35,26 @@ export const ProductProvider = ({ children }) => {
     // Fetch items logic here
     // This will update the state
   };
+  const fetchStores = () => {
+    const fetchData = async () => {
+        try {
+          const { data: response } = await axios.get('http://localhost:8080/stores');
+          setStores(response);// this seems to set the data
+        } catch (error) {
+          console.error(error)
+        }
+      };
+  
+      fetchData();
+    // Fetch items logic here
+    // This will update the state
+  };
 
   return (
-    <ProductContext.Provider value={{ products, addProduct, fetchProducts }}>
+    <AppContext.Provider value={{ products, addProduct, fetchProducts, stores, fetchStores }}>
       {children}
-    </ProductContext.Provider>
+    </AppContext.Provider>
   );
 };
 
-export const useProducts = () => useContext(ProductContext);
+export const useAppContext = () => useContext(AppContext);

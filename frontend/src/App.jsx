@@ -4,10 +4,11 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import ProductForm from './productForm'
 import ProductListing from './ProductListing'
-import { ProductProvider } from './ProductContext'
+import { AppProvider } from './AppContext'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import StoreListing from './StoreListing'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -15,8 +16,11 @@ function App() {
   return (
     <>
       
-      <ProductProvider>
+      <AppProvider>
       <Container>
+        <Row>
+          <StoreListing></StoreListing>
+        </Row>
         <Row>
           <Col>
           <ProductListing></ProductListing>
@@ -26,7 +30,7 @@ function App() {
           </Col>
         </Row>
       </Container>
-      </ProductProvider>
+      </AppProvider>
       {/*
       <div>
         <a href="https://vite.dev" target="_blank">

@@ -12,11 +12,16 @@ class LoadDatabase {
   private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
   @Bean
-  CommandLineRunner initDatabase(ProductRepository repository) {
+  CommandLineRunner initDatabase(ProductRepository repository, StoreRepository storeRepo) {
 
     return args -> {
       log.info("Preloading " + repository.save(new Product("Bilbo Baggins", 10)));
       log.info("Preloading " + repository.save(new Product("Frodo Baggins", 20)));
+
+      log.info("Preloading " + storeRepo.save(new Store("Tienda Centro")));
+      log.info("Preloading " + storeRepo.save(new Store("Tienda Norte")));
+      log.info("Preloading " + storeRepo.save(new Store("Tienda Sur")));
+
     };
   }
 }

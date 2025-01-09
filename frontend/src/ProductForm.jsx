@@ -2,11 +2,11 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
-import { useProducts } from './ProductContext';
+import { useAppContext } from './AppContext';
 
 
 function ProductForm() {
-    const { addProduct } = useProducts();
+    const { addProduct } = useAppContext();
 
     const handleSubmit = (event) => {
         event.preventDefault();

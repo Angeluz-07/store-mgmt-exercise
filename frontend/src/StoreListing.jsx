@@ -6,9 +6,9 @@ import Table from 'react-bootstrap/Table';
 import React, { useEffect, useState} from 'react';
 import { useAppContext } from './AppContext';
 
-function ProductListing() {
+function StoreListing() {
     //const [data, setData] = useState([])
-    const { products, fetchProducts } = useAppContext();
+    const { stores, fetchStores } = useAppContext();
     
     // todo: read HIW
     useEffect(() => {
@@ -22,7 +22,7 @@ function ProductListing() {
       // };
   
       // fetchData();
-      fetchProducts();
+      fetchStores();
     }, []);
     
     
@@ -32,22 +32,19 @@ function ProductListing() {
       <thead>
         <tr>
           <th>#</th>
-          <th>Nombre del Producto</th>
-          <th>Precio</th>
+          <th>Nombre del Local</th>
         </tr>
       </thead>
       <tbody>
           <tr>
             <td>0</td>
             <td>Example item</td>
-            <td>0.0</td>
           </tr>
-        {products.map((item, i) => {
+        {stores.map((item, i) => {
             return (
               <tr key={i}>
                 <td>{i+1}</td>
                 <td>{item?.name}</td>
-                <td>{item?.price}</td>
               </tr>
             );
           })}
@@ -57,4 +54,4 @@ function ProductListing() {
   )
 }
 
-export default ProductListing;
+export default StoreListing;
