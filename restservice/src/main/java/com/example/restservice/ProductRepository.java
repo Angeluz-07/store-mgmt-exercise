@@ -14,8 +14,8 @@ public class ProductRepository {
     public List<Product> findAll(){
         return this.products;
     }
-    public String save(Product p){
+    public Product save(Product p){
         this.products.add(p);
-        return "Added product: " + p.name; // todo: improve with a toString method.
+        return p; // todo: improve with a toString method.
     }
 }
