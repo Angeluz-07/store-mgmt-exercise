@@ -2,10 +2,12 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
+import { useProducts } from './ProductContext';
 
 
 function ProductForm() {
-    
+    const { addProduct } = useProducts();
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
@@ -19,10 +21,11 @@ function ProductForm() {
         var json = JSON.stringify(object);
         console.log(json);
 
+        addProduct(object);
         //send post request
-        axios.post('http://localhost:8080/products', object)
-            .then(response => console.log("Success:", response.data))
-            .catch(error => console.error('Error:', error));
+        //axios.post('http://localhost:8080/products', object)
+        //   .then(response => console.log("Success:", response.data))
+        //   .catch(error => console.error('Error:', error));
       };
   return (
     <>

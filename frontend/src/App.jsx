@@ -3,6 +3,8 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import ProductForm from './productForm'
+import ProductListing from './ProductListing'
+import { ProductProvider } from './ProductContext'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -13,7 +15,10 @@ function App() {
       <div>
         <p>Agregar Productos</p>
       </div>
+      <ProductProvider>
+      <ProductListing></ProductListing>
       <ProductForm></ProductForm>
+      </ProductProvider>
       {/*
       <div>
         <a href="https://vite.dev" target="_blank">
