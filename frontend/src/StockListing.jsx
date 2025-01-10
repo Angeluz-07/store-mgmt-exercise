@@ -32,18 +32,24 @@ function StockListing() {
       <thead>
         <tr>
           <th>#</th>
-          <th>Nombre del Local</th>
+          <th>Nombre del Local</th>          
+          <th>Producto</th>
+          <th>Cantidad</th>
         </tr>
       </thead>
       <tbody>
           <tr>
             <td>0</td>
             <td>Example item</td>
+            <td>..</td>
+            <td>..</td>
           </tr>
         {stocks.map((item, i) => {
             return (
               <tr key={i}>
                 <td>{i+1}</td>
+                <td>{item?.store.name}</td>
+                <td>{item?.product.name}</td>
                 <td>{item?.quantity}</td>
               </tr>
             );

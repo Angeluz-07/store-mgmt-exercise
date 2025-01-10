@@ -14,9 +14,8 @@ export const AppProvider = ({ children }) => {
     //send post request
     axios.post('http://localhost:8080/products', newProduct)
     .then(response => {
-        console.log("Success:", response.data)
-        setProducts([...products, newProduct]);
-
+        console.log("Success:", response.data);
+        fetchProducts();
     })
     .catch(error => console.error('Error:', error));
 
@@ -57,8 +56,7 @@ export const AppProvider = ({ children }) => {
     axios.post('http://localhost:8080/stocks', newItem)
     .then(response => {
         console.log("Success:", response.data)
-        setStocks([...stocks, newItem]);
-
+        fetchStocks();
     })
     .catch(error => console.error('Error:', error));
 
@@ -69,6 +67,7 @@ export const AppProvider = ({ children }) => {
         try {
           const { data: response } = await axios.get('http://localhost:8080/stocks');
           setStocks(response);// this seems to set the data
+          console.log(response);
         } catch (error) {
           console.error(error)
         }

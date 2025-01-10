@@ -54,11 +54,11 @@ function StockForm() {
       <Form.Label><b>Asignar Productos a Local</b></Form.Label>
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
         <Form.Label>Local</Form.Label>
-        <Form.Select aria-label="Default select example" name="store">
+        <Form.Select aria-label="Default select example" name="storeId">
         <option>Seleccione una opción</option>
         {stores.map((item, i) => {
             return (
-              <option key={i} value={i}>
+              <option key={i} value={item.id}>
                 {item?.name}
               </option>
             );
@@ -67,11 +67,11 @@ function StockForm() {
       </Form.Group>
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
         <Form.Label>Producto</Form.Label>
-        <Form.Select aria-label="Default select example" name="product">
+        <Form.Select aria-label="Default select example" name="productId">
         <option>Seleccione una opción</option>
         {products.map((item, i) => {
             return (
-              <option key={i} value={i}>
+              <option key={i} value={item.id}>
                 {item?.name}
               </option>
             );

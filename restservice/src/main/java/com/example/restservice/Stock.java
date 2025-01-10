@@ -1,34 +1,61 @@
 package com.example.restservice;
+import java.util.UUID; 
 
 // domain
 public class Stock {
-    String storeId;
-    String productId;
+    
+    UUID storeId;
+    UUID productId;
     int quantity;
 
+    Product product;
+    Store store; 
 
-    public String getStoreId() {
+    public Stock(UUID storeId, UUID productId, int quantity) {
+        this.storeId = storeId;
+        this.productId = productId;
+        this.quantity = quantity;
+    }
+
+
+    public UUID getStoreId() {
         return this.storeId;
     }
 
-    public void setStoreId(String storeId) {
+    public void setStoreId(UUID storeId) {
         this.storeId = storeId;
     }
 
-    public String getProductId() {
+    public UUID getProductId() {
         return this.productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(UUID productId) {
         this.productId = productId;
     }
-
+  
     public int getQuantity() {
         return this.quantity;
     }
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public Product getProduct() {
+        return this.product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Store getStore() {
+        return this.store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
     }
 
 
