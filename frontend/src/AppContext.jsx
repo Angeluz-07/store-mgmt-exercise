@@ -7,7 +7,8 @@ const AppContext = createContext();
 export const AppProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [stores, setStores] = useState([]);
-  
+  const [stocks, setStocks] = useState([]);
+
   const addProduct = (newProduct) => {
     // Add new item logic here
     //send post request
@@ -50,8 +51,36 @@ export const AppProvider = ({ children }) => {
     // This will update the state
   };
 
+  const addStock = (newItem) => {
+    // Add new item logic here
+    //send post request
+    axios.post('http://localhost:8080/stocks', newItem)
+    .then(response => {
+        console.log("Success:", response.data)
+        setStocks([...stocks, newItem]);
+
+    })
+    .catch(error => console.error('Error:', error));
+
+  };
+
+  const fetchStocks = () => {
+    const fetchData = async () => {
+        try {
+          const { data: response } = await axios.get('http://localhost:8080/stocks');
+          setStocks(response);// this seems to set the data
+        } catch (error) {
+          console.error(error)
+        }
+      };
+  
+      fetchData();
+    // Fetch items logic here
+    // This will update the state
+  };
+
   return (
-    <AppContext.Provider value={{ products, addProduct, fetchProducts, stores, fetchStores }}>
+    <AppContext.Provider value={{ products, addProduct, fetchProducts, stores, fetchStores, stocks, fetchStocks , addStock}}>
       {children}
     </AppContext.Provider>
   );

@@ -9,6 +9,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import StoreListing from './StoreListing'
+import StockForm  from './StockForm'
+import StockListing from './StockListing'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -18,6 +20,14 @@ function App() {
       
       <AppProvider>
       <Container>
+        <Row>
+          <Col>
+            <StockListing></StockListing>
+          </Col>
+          <Col>          
+            <StockForm></StockForm>
+          </Col>
+        </Row>
         <Row>
           <StoreListing></StoreListing>
         </Row>

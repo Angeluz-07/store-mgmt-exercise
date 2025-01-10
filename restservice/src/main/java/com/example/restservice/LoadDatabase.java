@@ -15,8 +15,9 @@ class LoadDatabase {
   CommandLineRunner initDatabase(ProductRepository repository, StoreRepository storeRepo) {
 
     return args -> {
-      log.info("Preloading " + repository.save(new Product("Bilbo Baggins", 10)));
-      log.info("Preloading " + repository.save(new Product("Frodo Baggins", 20)));
+      log.info("Preloading " + repository.save(new Product("Atun", 1.5)));
+      log.info("Preloading " + repository.save(new Product("Aceite", 2.10)));      
+      log.info("Preloading " + repository.save(new Product("Colgate", 1.20)));
 
       log.info("Preloading " + storeRepo.save(new Store("Tienda Centro")));
       log.info("Preloading " + storeRepo.save(new Store("Tienda Norte")));
