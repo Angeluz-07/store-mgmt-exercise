@@ -5,9 +5,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import java.util.UUID;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 // controller
@@ -27,15 +30,25 @@ public class StockController {
   
 
     @GetMapping("/stocks")
-    List<Stock> all() {
-        List<Stock> stocks = repository.findAll();
+    List<Stock> all(@RequestParam(required = false) String storeId) {
+        List<Stock> stocks;
+        
+        stocks = repository.findAll();
+        if(storeId != null){
+            //todo: add try/catch block for non-valid ids
+            UUID storeIdParam = UUID.fromString(storeId);
+            stocks = stocks.stream()
+            .filter(item -> storeIdParam.equals(item.getStoreId()))
+            .collect(Collectors.toList());
+        }
+        
         for (Stock s:stocks){
             UUID productID = s.productId;            
             Product p = productRepository.findById(productID);
             s.setProduct(p);
 
-            UUID storeId = s.storeId;
-            Store store = storeRepository.findById(storeId);
+            UUID storeId_ = s.storeId;
+            Store store = storeRepository.findById(storeId_);
             s.setStore(store);        
         }
 

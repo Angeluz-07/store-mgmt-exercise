@@ -3,7 +3,7 @@ import java.util.UUID;
 
 // domain
 public class Stock {
-    
+    UUID id;
     UUID storeId;
     UUID productId;
     int quantity;
@@ -15,6 +15,7 @@ public class Stock {
         this.storeId = storeId;
         this.productId = productId;
         this.quantity = quantity;
+        this.id = UUID.randomUUID();
     }
 
 
@@ -58,6 +59,14 @@ public class Stock {
         this.store = store;
     }
 
+
+    public UUID getId() {
+        return this.id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     @Override
     public String toString() {

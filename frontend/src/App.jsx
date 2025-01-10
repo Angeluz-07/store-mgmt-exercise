@@ -11,6 +11,7 @@ import Col from 'react-bootstrap/Col';
 import StoreListing from './StoreListing'
 import StockForm  from './StockForm'
 import StockListing from './StockListing'
+import SalesForm from './SalesForm'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -20,6 +21,9 @@ function App() {
       
       <AppProvider>
       <Container>
+        <Row>
+          <SalesForm></SalesForm>
+        </Row>
         <Row>
           <Col>
             <StockListing></StockListing>
