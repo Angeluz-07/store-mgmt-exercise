@@ -12,39 +12,30 @@ import StoreListing from './StoreListing'
 import StockForm  from './StockForm'
 import StockListing from './StockListing'
 import SalesForm from './SalesForm'
+import NavbarWrap from './Navbar'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import AddProduct from './views/AddProduct'
+import AddStock from './views/AddStock'
+import Sales from './views/Sales'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      
       <AppProvider>
-      <Container>
-        <Row>
-          <SalesForm></SalesForm>
-        </Row>
-        <Row>
-          <Col>
-            <StockListing></StockListing>
-          </Col>
-          <Col>          
-            <StockForm></StockForm>
-          </Col>
-        </Row>
-        <Row>
-          <StoreListing></StoreListing>
-        </Row>
-        <Row>
-          <Col>
-          <ProductListing></ProductListing>
-          </Col>
-          <Col>          
-          <ProductForm></ProductForm>
-          </Col>
-        </Row>
-      </Container>
+        
+      <Router>
+        <NavbarWrap></NavbarWrap>
+        <Routes>
+          <Route path="/addProduct" element={<AddProduct />} />
+          <Route path="/addStock" element={<AddStock />} />
+          <Route path="/sales" element={<Sales />} />
+          <Route path="/stores" element={<StoreListing />} />
+        </Routes>
+      </Router>
       </AppProvider>
+
       {/*
       <div>
         <a href="https://vite.dev" target="_blank">
