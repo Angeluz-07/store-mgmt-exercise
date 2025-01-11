@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.UUID;
 
@@ -58,5 +60,13 @@ public class StockController {
     @PostMapping("/stocks")
     Stock newStock(@RequestBody Stock newStock) {
         return repository.save(newStock);
+    }
+
+    @PostMapping("/stocks/{id}/substract/{value}")
+    Stock replaceStock(@PathVariable String id, @PathVariable int value) {
+        UUID stockId = UUID.fromString(id);
+        Stock stockToUpdate = repository.findById(stockId);
+        stockToUpdate.setQuantity(stockToUpdate.getQuantity()-value);
+        return stockToUpdate;
     }
 }

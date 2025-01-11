@@ -41,9 +41,23 @@ function SalesForm() {
         }
       };
   
-      fetchData();
-      
+      fetchData();      
     }; 
+
+    const updateTableWithStoreId = (storeIdSelected) => {
+      const fetchData = async () => {
+        try {
+          const { data: response } = await axios.get(`http://localhost:8080/stocks?storeId=${storeIdSelected}`);
+          setStocks(response);// this seems to set the data
+        } catch (error) {
+          console.error(error)
+        }
+      };
+  
+      fetchData();      
+    }; 
+
+
 
     const handleSubmit = (event) => {
       event.preventDefault();
@@ -59,9 +73,13 @@ function SalesForm() {
       console.log(json);
 
       //send post request
-      //axios.post('http://localhost:8080/products', object)
-      //   .then(response => console.log("Success:", response.data))
-      //   .catch(error => console.error('Error:', error));
+      axios.post(`http://localhost:8080/stocks/${object.stockId}/substract/${object.quantityToSell}`, object)
+        .then(response => 
+          {console.log("Success:", response.data)
+            updateTableWithStoreId(object.storeId);
+          }
+          )
+        .catch(error => console.error('Error:', error));
     };
 
     
@@ -103,8 +121,9 @@ function SalesForm() {
                   <td>
                     <Form onSubmit={handleSubmit}>
                     <Row>
-                      <Col>                   
+                      <Col>                                         
                         <input type="hidden" name="stockId" value={item.id} />
+                        <input type="hidden" name="storeId" value={item.storeId} />
                         <Form.Group className="mb-3" >
                         <Form.Control type="text" name="quantityToSell" />
                         </Form.Group>
