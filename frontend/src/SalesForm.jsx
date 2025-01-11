@@ -82,6 +82,29 @@ function SalesForm() {
         .catch(error => console.error('Error:', error));
     };
 
+    const handleIncreaseStock = (event) => {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      for (let [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`);
+      }
+
+      // build object
+      var object = {};
+      formData.forEach((value, key) => object[key] = value);
+      var json = JSON.stringify(object);
+      console.log(json);
+
+      //send post request
+      axios.post(`http://localhost:8080/stocks/${object.stockId}/add/${object.quantityToAdd}`, object)
+        .then(response => 
+          {console.log("Success:", response.data)
+            updateTableWithStoreId(object.storeId);
+          }
+          )
+        .catch(error => console.error('Error:', error));
+    };
+
     
   return (
     <>
@@ -108,6 +131,7 @@ function SalesForm() {
           <th>Cantidad</th>
           <th>Precio</th>
           <th className={'w-25'}>Cantidad a vender</th>
+          <th className={'w-25'}>Cantidad a aumentar</th>
         </tr>
       </thead>
       <tbody>
@@ -133,6 +157,22 @@ function SalesForm() {
                       </Col>
                     </Row>
                     </Form>
+                  </td>                  
+                  <td>
+                    <Form onSubmit={handleIncreaseStock}>
+                    <Row>
+                      <Col>                                         
+                        <input type="hidden" name="stockId" value={item.id} />
+                        <input type="hidden" name="storeId" value={item.storeId} />
+                        <Form.Group className="mb-3" >
+                        <Form.Control type="text" name="quantityToAdd" />
+                        </Form.Group>
+                      </Col>              
+                      <Col>
+                        <Button variant="primary" type="submit">Guardar</Button>                      
+                      </Col>
+                    </Row>
+                    </Form>
                   </td>
 
               </tr>
@@ -144,6 +184,7 @@ function SalesForm() {
             <td></td>
             <td></td>            
             <td></td>
+            <td></td>            
           </tr>
       </tbody>
     </Table>

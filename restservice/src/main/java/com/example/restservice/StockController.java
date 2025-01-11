@@ -69,4 +69,12 @@ public class StockController {
         stockToUpdate.setQuantity(stockToUpdate.getQuantity()-value);
         return stockToUpdate;
     }
+
+    @PostMapping("/stocks/{id}/add/{value}")
+    Stock increaseStock(@PathVariable String id, @PathVariable int value) {
+        UUID stockId = UUID.fromString(id);
+        Stock stockToUpdate = repository.findById(stockId);
+        stockToUpdate.setQuantity(stockToUpdate.getQuantity()+value);
+        return stockToUpdate;
+    }
 }
