@@ -70,7 +70,7 @@ function SalesForm() {
       var object = {};
       formData.forEach((value, key) => object[key] = value);
       var json = JSON.stringify(object);
-      console.log(json);
+      console.log("before decrease", json);
 
       //send post request
       axios.post(`http://localhost:8080/stocks/${object.stockId}/substract/${object.quantityToSell}`, object)
@@ -83,6 +83,7 @@ function SalesForm() {
     };
 
     const handleIncreaseStock = (event) => {
+      console.log("Entering increase")
       event.preventDefault();
       const formData = new FormData(event.target);
       for (let [key, value] of formData.entries()) {
@@ -93,12 +94,12 @@ function SalesForm() {
       var object = {};
       formData.forEach((value, key) => object[key] = value);
       var json = JSON.stringify(object);
-      console.log(json);
+      console.log("before upd",json);
 
       //send post request
       axios.post(`http://localhost:8080/stocks/${object.stockId}/add/${object.quantityToAdd}`, object)
         .then(response => 
-          {console.log("Success:", response.data)
+          {console.log("Success update:", response.data)
             updateTableWithStoreId(object.storeId);
           }
           )

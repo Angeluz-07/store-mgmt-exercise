@@ -39,6 +39,7 @@ export const AppProvider = ({ children }) => {
     const fetchData = async () => {
         try {
           const { data: response } = await axios.get('http://localhost:8080/stores');
+          console.log("stores", response)
           setStores(response);// this seems to set the data
         } catch (error) {
           console.error(error)
@@ -67,7 +68,7 @@ export const AppProvider = ({ children }) => {
         try {
           const { data: response } = await axios.get('http://localhost:8080/stocks');
           setStocks(response);// this seems to set the data
-          console.log(response);
+          console.log("stocks",response);
         } catch (error) {
           console.error(error)
         }

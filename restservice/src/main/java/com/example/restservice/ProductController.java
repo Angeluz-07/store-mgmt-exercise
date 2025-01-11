@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
+import java.util.UUID; 
+
 
 
 // controller
@@ -21,12 +23,13 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    List<Product> all() {
+    Iterable<Product> all() {
         return repository.findAll();
     }
 
     @PostMapping("/products")
     Product newProduct(@RequestBody Product newProduct) {
+        newProduct.setId(UUID.randomUUID());
         return repository.save(newProduct);
     }
 }

@@ -1,8 +1,9 @@
 package com.example.restservice;
 import java.util.UUID; 
+import java.io.Serializable;
 
 // domain
-public class Store {
+public class Store implements Serializable{
     UUID id;
     String name;
 
