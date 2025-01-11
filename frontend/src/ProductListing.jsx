@@ -37,11 +37,6 @@ function ProductListing() {
         </tr>
       </thead>
       <tbody>
-          <tr>
-            <td>0</td>
-            <td>Example item</td>
-            <td>0.0</td>
-          </tr>
         {products.map((item, i) => {
             return (
               <tr key={i}>
@@ -51,6 +46,12 @@ function ProductListing() {
               </tr>
             );
           })}
+          
+          <tr>
+            <td>0</td>
+            <td>Example item</td>
+            <td>0.0</td>
+          </tr>
       </tbody>
     </Table>
     </>

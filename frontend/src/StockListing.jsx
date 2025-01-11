@@ -38,12 +38,6 @@ function StockListing() {
         </tr>
       </thead>
       <tbody>
-          <tr>
-            <td>0</td>
-            <td>Example item</td>
-            <td>..</td>
-            <td>..</td>
-          </tr>
         {stocks.map((item, i) => {
             return (
               <tr key={i}>
@@ -53,7 +47,13 @@ function StockListing() {
                 <td>{item?.quantity}</td>
               </tr>
             );
-          })}
+          })}          
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
       </tbody>
     </Table>
     </>

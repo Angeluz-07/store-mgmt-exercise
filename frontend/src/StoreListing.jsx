@@ -36,10 +36,6 @@ function StoreListing() {
         </tr>
       </thead>
       <tbody>
-          <tr>
-            <td>0</td>
-            <td>Example item</td>
-          </tr>
         {stores.map((item, i) => {
             return (
               <tr key={i}>
@@ -48,6 +44,11 @@ function StoreListing() {
               </tr>
             );
           })}
+          
+          <tr>
+            <td></td>
+            <td></td>
+          </tr>
       </tbody>
     </Table>
     </>

@@ -6,6 +6,10 @@ import Table from 'react-bootstrap/Table';
 import React, { useEffect, useState} from 'react';
 import { useAppContext } from './AppContext';
 
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 function SalesForm() {
     const [ stocks, setStocks] = useState([])
     const { stores, fetchStores} = useAppContext();
@@ -40,9 +44,30 @@ function SalesForm() {
       fetchData();
       
     }; 
+
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      for (let [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`);
+      }
+
+      // build object
+      var object = {};
+      formData.forEach((value, key) => object[key] = value);
+      var json = JSON.stringify(object);
+      console.log(json);
+
+      //send post request
+      //axios.post('http://localhost:8080/products', object)
+      //   .then(response => console.log("Success:", response.data))
+      //   .catch(error => console.error('Error:', error));
+    };
+
     
   return (
     <>
+
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
         <Form.Label>Locales</Form.Label>
         <Form.Select aria-label="Default select example" name="" onChange={updateTable}>
@@ -57,38 +82,50 @@ function SalesForm() {
 
         </Form.Select>
       </Form.Group>
-      <Table striped bordered hover>
+      <Table striped bordered hover > 
       <thead>
         <tr>
           <th>#</th>        
           <th>Producto</th>
           <th>Cantidad</th>
           <th>Precio</th>
-          <th>Cantidad a vender</th>
-          <th></th>
+          <th className={'w-25'}>Cantidad a vender</th>
         </tr>
       </thead>
       <tbody>
-          <tr>
-            <td>0</td>
-            <td>Example item</td>
-            <td>..</td>
-            <td>..</td>            
-            <td>..</td>
-            <td>..</td>
-          </tr>
         {stocks.map((item, i) => {
             return (
               <tr key={i}>
-                <td>{i+1}</td>
-                <td>{item?.product.name}</td>
-                <td>{item?.quantity}</td>
-                <td>{item?.product.price}</td>
-                <td></td>
-                <td></td>
+                  <td>{i+1}</td>
+                  <td>{item?.product.name}</td>
+                  <td>{item?.quantity}</td>
+                  <td>{item?.product.price}</td>
+                  <td>
+                    <Form onSubmit={handleSubmit}>
+                    <Row>
+                      <Col>                   
+                        <input type="hidden" name="stockId" value={item.id} />
+                        <Form.Group className="mb-3" >
+                        <Form.Control type="text" name="quantityToSell" />
+                        </Form.Group>
+                      </Col>              
+                      <Col>
+                        <Button variant="primary" type="submit">Guardar</Button>                      
+                      </Col>
+                    </Row>
+                    </Form>
+                  </td>
+
               </tr>
             );
           })}
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>            
+            <td></td>
+          </tr>
       </tbody>
     </Table>
     </>
