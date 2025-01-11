@@ -6,10 +6,14 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Repository;
 
+import org.springframework.data.repository.CrudRepository;
 
+public interface StockRepository extends CrudRepository<Stock, UUID> {}
+
+/* 
 // domain
 @Repository
-public class StockRepository {
+public class StockRepositoryMem {
     List<Stock> stocks = new ArrayList();
 
     public List<Stock> findAll(){
@@ -30,3 +34,4 @@ public class StockRepository {
     }
 
 }
+*/

@@ -5,11 +5,16 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.CrudRepository;
 
 
+public interface ProductRepository extends CrudRepository<Product, UUID> {
+
+}
+/* 
 // domain
 @Repository
-public class ProductRepository {
+public class ProductRepositoryMem {
     List<Product> products = new ArrayList();
 
     public List<Product> findAll(){
@@ -29,3 +34,4 @@ public class ProductRepository {
         return p; // todo: improve with a toString method.
     }
 }
+*/

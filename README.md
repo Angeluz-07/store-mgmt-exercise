@@ -6,6 +6,11 @@ Java 23.0.1
 Gradle 7.5.1
 npm 10.9.2
 
+# Setup db
+```
+docker compose up
+```
+
 # Run service(backend)
 ```
 cd restservice

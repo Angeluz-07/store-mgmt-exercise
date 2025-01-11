@@ -13,6 +13,8 @@ import java.util.UUID;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 
 // controller
@@ -32,25 +34,30 @@ public class StockController {
   
 
     @GetMapping("/stocks")
-    List<Stock> all(@RequestParam(required = false) String storeId) {
-        List<Stock> stocks;
+    Iterable<Stock> all(@RequestParam(required = false) String storeId) {
+        Iterable<Stock> stocks;
         
         stocks = repository.findAll();
         if(storeId != null){
             //todo: add try/catch block for non-valid ids
             UUID storeIdParam = UUID.fromString(storeId);
-            stocks = stocks.stream()
+            stocks = StreamSupport.stream(stocks.spliterator(),false)
             .filter(item -> storeIdParam.equals(item.getStoreId()))
             .collect(Collectors.toList());
         }
         
         for (Stock s:stocks){
             UUID productID = s.productId;            
-            Product p = productRepository.findById(productID);
+            //Product p = productRepository.findById(productID).get();
+            Product p = StreamSupport.stream(productRepository.findAll().spliterator(),false)
+            .filter(item -> productID.equals(item.getId()))
+            .findFirst()
+            .orElse(null);         
+
             s.setProduct(p);
 
             UUID storeId_ = s.storeId;
-            Store store = storeRepository.findById(storeId_);
+            Store store = storeRepository.findById(storeId_);  
             s.setStore(store);        
         }
 
@@ -59,22 +66,33 @@ public class StockController {
 
     @PostMapping("/stocks")
     Stock newStock(@RequestBody Stock newStock) {
+        newStock.setId(UUID.randomUUID());//** 
         return repository.save(newStock);
     }
 
     @PostMapping("/stocks/{id}/substract/{value}")
     Stock replaceStock(@PathVariable String id, @PathVariable int value) {
         UUID stockId = UUID.fromString(id);
-        Stock stockToUpdate = repository.findById(stockId);
+        //Stock stockToUpdate = repository.findById(stockId).get();
+        Stock stockToUpdate = StreamSupport.stream(repository.findAll().spliterator(),false)
+            .filter(item -> stockId.equals(item.getId()))
+            .findFirst()
+            .orElse(null);
         stockToUpdate.setQuantity(stockToUpdate.getQuantity()-value);
+        repository.save(stockToUpdate);//when using db persistence, need to explicitlty save
         return stockToUpdate;
     }
 
     @PostMapping("/stocks/{id}/add/{value}")
     Stock increaseStock(@PathVariable String id, @PathVariable int value) {
         UUID stockId = UUID.fromString(id);
-        Stock stockToUpdate = repository.findById(stockId);
+        //Stock stockToUpdate = repository.findById(stockId).get();
+        Stock stockToUpdate = StreamSupport.stream(repository.findAll().spliterator(),false)
+        .filter(item -> stockId.equals(item.getId()))
+        .findFirst()
+        .orElse(null);
         stockToUpdate.setQuantity(stockToUpdate.getQuantity()+value);
+        repository.save(stockToUpdate);//when using db persistence, need to explicitlty save
         return stockToUpdate;
     }
 }

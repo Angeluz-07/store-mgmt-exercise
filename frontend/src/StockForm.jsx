@@ -40,7 +40,7 @@ function StockForm() {
       formData.forEach((value, key) => object[key] = value);
       var json = JSON.stringify(object);
       console.log(json);
-
+      console.log("enviando", object);
       addStock(object);
       //send post request
       //axios.post('http://localhost:8080/products', object)
